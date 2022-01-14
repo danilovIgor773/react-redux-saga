@@ -21,7 +21,7 @@ export const FetchedPosts = () => {
     </button>
   );
 
-  if (!posts.length) return loadPostsButton;
+  if (!posts?.length) return loadPostsButton;
 
   const postsToRender = posts.map((post, idx) => (
     <Post key={post.id} post={post} />

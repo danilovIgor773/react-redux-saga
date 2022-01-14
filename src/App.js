@@ -25,7 +25,7 @@ function App() {
         </div>
         <div className="col">
           <ASyncPostsHeader />
-          <FetchedPosts posts={[]} />
+          <FetchedPosts />
         </div>
       </div>
     </div>

@@ -1,4 +1,11 @@
-import { CREATE_POST, FETCH_POST, SHOW_LOADER, HIDE_LOADER } from "./types";
+import {
+  CREATE_POST,
+  SHOW_LOADER,
+  HIDE_LOADER,
+  SHOW_ALERT,
+  HIDE_ALERT,
+  REQUEST_POSTS,
+} from "./types";
 
 export const createPost = (post) => {
   return {
@@ -13,6 +20,24 @@ export const showLoader = () => {
   };
 };
 
+export const showAlert = (text) => {
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_ALERT,
+      payload: text,
+    });
+    setTimeout(() => {
+      dispatch(hideAlert());
+    }, 3000);
+  };
+};
+
+export const hideAlert = () => {
+  return {
+    type: HIDE_ALERT,
+  };
+};
+
 export const hideLoader = () => {
   return {
     type: HIDE_LOADER,
@@ -20,13 +45,22 @@ export const hideLoader = () => {
 };
 
 export const fetchPosts = () => {
-  return async (dispatch) => {
-    dispatch(showLoader());
-    const response = await fetch(
-      "https://jsonplaceholder.typicode.com/posts?_limit=5"
-    );
-    const json = await response.json();
-    dispatch({ type: FETCH_POST, payload: json });
-    dispatch(hideLoader());
+  return {
+    type: REQUEST_POSTS,
   };
 };
+
+// return async (dispatch) => {
+//   try {
+//     dispatch(showLoader());
+//     const response = await fetch(
+//       "https://jsonplaceholder.typicode.com/posts?_limit=5"
+//     );
+//     const json = await response.json();
+//     dispatch({ type: FETCH_POST, payload: json });
+//     dispatch(hideLoader());
+//   } catch (error) {
+//     dispatch(showAlert("Something went wrong!"));
+//     dispatch(hideLoader());
+//   }
+// };
